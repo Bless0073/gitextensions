@@ -5,7 +5,7 @@ using GitCommands;
 using GitUI.Properties;
 using GitUI.UserControls;
 using JetBrains.Annotations;
-using Microsoft.WindowsAPICodePack.Taskbar;
+////using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace GitUI.HelperDialogs
 {

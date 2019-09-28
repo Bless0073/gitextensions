@@ -37,7 +37,7 @@ using GitUIPluginInterfaces.RepositoryHosts;
 using JetBrains.Annotations;
 using Microsoft.VisualStudio.Threading;
 using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Taskbar;
+////using Microsoft.WindowsAPICodePack.Taskbar;
 using ResourceManager;
 
 namespace GitUI.CommandsDialogs
@@ -90,7 +90,7 @@ namespace GitUI.CommandsDialogs
         private readonly ICommitDataManager _commitDataManager;
         private readonly IAppTitleGenerator _appTitleGenerator;
         [CanBeNull] private readonly IAheadBehindDataProvider _aheadBehindDataProvider;
-        private readonly WindowsJumpListManager _windowsJumpListManager;
+        ////private readonly WindowsJumpListManager _windowsJumpListManager;
         private readonly ISubmoduleStatusProvider _submoduleStatusProvider;
         private readonly FormBrowseDiagnosticsReporter _formBrowseDiagnosticsReporter;
         [CanBeNull] private BuildReportTabPageExtension _buildReportTabPageExtension;
@@ -386,10 +386,10 @@ namespace GitUI.CommandsDialogs
                                     g.FillEllipse(brush, new Rectangle(imgDim - dotDim - pad, imgDim - dotDim - pad, dotDim, dotDim));
                                 }
 
-                                using (var overlay = Icon.FromHandle(bmp.GetHicon()))
-                                {
-                                    TaskbarManager.Instance.SetOverlayIcon(overlay, "");
-                                }
+                                ////using (var overlay = Icon.FromHandle(bmp.GetHicon()))
+                                ////{
+                                ////    TaskbarManager.Instance.SetOverlayIcon(overlay, "");
+                                ////}
                             }
 
                             var repoStateVisualiser = new RepoStateVisualiser();
@@ -558,7 +558,7 @@ namespace GitUI.CommandsDialogs
                 _filterBranchHelper?.Dispose();
                 components?.Dispose();
                 _gitStatusMonitor?.Dispose();
-                _windowsJumpListManager?.Dispose();
+                ////_windowsJumpListManager?.Dispose();
 
                 // ReSharper restore ConstantConditionalAccessQualifier
             }
@@ -990,7 +990,7 @@ namespace GitUI.CommandsDialogs
 
                 if (validBrowseDir)
                 {
-                    _windowsJumpListManager.AddToRecent(Module.WorkingDir);
+                    ////_windowsJumpListManager.AddToRecent(Module.WorkingDir);
 
                     // add Navigate and View menu
                     _formBrowseMenus.ResetMenuCommandSets();
@@ -1001,7 +1001,7 @@ namespace GitUI.CommandsDialogs
                 }
                 else
                 {
-                    _windowsJumpListManager.DisableThumbnailToolbar();
+                    ////_windowsJumpListManager.DisableThumbnailToolbar();
                 }
 
                 UICommands.RaisePostBrowseInitialize(this);
