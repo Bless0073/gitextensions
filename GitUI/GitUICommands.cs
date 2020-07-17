@@ -930,7 +930,18 @@ namespace GitUI
                 return true;
             }
 
-            return DoActionOnRepo(owner, false, true, null, PostSettings, Action);
+            Stopwatch sw = new Stopwatch();
+            try
+            {
+                sw.Start();
+
+                return DoActionOnRepo(owner, false, true, null, PostSettings, Action);
+            }
+            finally
+            {
+                sw.Stop();
+                Debug.WriteLine($"StartSettingsDialog loaded in\t\t\t{sw.ElapsedMilliseconds:#,##0} ms");
+            }
         }
 
         public bool StartSettingsDialog(IGitPlugin gitPlugin)
@@ -1469,7 +1480,7 @@ namespace GitUI
                     return Module.OpenWithDifftool(args[2]) == "";
                 case BlameHistoryCommand:
                 case FileHistoryCommand:
-                                    // filename [revision [--filter-by-revision]]
+                    // filename [revision [--filter-by-revision]]
                     if (Module.WorkingDir.TrimEnd('\\') == Path.GetFullPath(args[2]) && Module.SuperprojectModule != null)
                     {
                         Module = Module.SuperprojectModule;

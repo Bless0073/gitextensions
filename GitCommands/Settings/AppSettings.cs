@@ -151,25 +151,25 @@ namespace GitCommands
             set => SetBool("RememberAmendCommitState", value);
         }
 
-        public static void UsingContainer(RepoDistSettings settingsContainer, Action action)
-        {
-            SettingsContainer.LockedAction(() =>
-                {
-                    var oldSC = SettingsContainer;
-                    try
-                    {
-                        SettingsContainer = settingsContainer;
-                        action();
-                    }
-                    finally
-                    {
-                        SettingsContainer = oldSC;
+        ////public static void UsingContainer(RepoDistSettings settingsContainer, Action action)
+        ////{
+        ////    SettingsContainer.LockedAction(() =>
+        ////        {
+        ////            var oldSC = SettingsContainer;
+        ////            try
+        ////            {
+        ////                SettingsContainer = settingsContainer;
+        ////                action();
+        ////            }
+        ////            finally
+        ////            {
+        ////                SettingsContainer = oldSC;
 
-                        // refresh settings if needed
-                        SettingsContainer.GetString(string.Empty, null);
-                    }
-                });
-        }
+        ////                // refresh settings if needed
+        ////                SettingsContainer.GetString(string.Empty, null);
+        ////            }
+        ////        });
+        ////}
 
         [CanBeNull]
         public static string GetInstallDir()

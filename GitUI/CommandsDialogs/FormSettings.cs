@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -143,10 +144,17 @@ namespace GitUI.CommandsDialogs
 
             using (var form = new FormSettings(uiCommands, initialPage))
             {
-                AppSettings.UsingContainer(form._commonLogic.RepoDistSettingsSet.GlobalSettings, () =>
-                {
-                    result = form.ShowDialog(owner);
-                });
+                ////AppSettings.UsingContainer(
+                ////    form._commonLogic.RepoDistSettingsSet.GlobalSettings,
+                ////    () =>
+                ////    {
+                ////        sw.Stop();
+                ////        Debug.WriteLine($"FormSettings inited in\t\t\t{sw.ElapsedMilliseconds:#,##0}ms");
+
+                ////        result = form.ShowDialog(owner);
+                ////    });
+
+                result = form.ShowDialog(owner);
             }
 
             return result;
@@ -234,7 +242,13 @@ namespace GitUI.CommandsDialogs
         {
             using (WaitCursorScope.Enter())
             {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+
                 LoadSettings();
+
+                sw.Stop();
+                Debug.WriteLine($"LoadSettings loaded in\t\t\t{sw.ElapsedMilliseconds:#,##0}ms");
             }
         }
 
@@ -288,9 +302,16 @@ namespace GitUI.CommandsDialogs
         {
             try
             {
+                Stopwatch sw = new Stopwatch();
+
                 foreach (var settingsPage in SettingsPages)
                 {
+                    sw.Restart();
+
                     settingsPage.LoadSettings();
+
+                    sw.Stop();
+                    Debug.WriteLine($"{settingsPage.GetType().Name}: loaded in\t\t\t{sw.ElapsedMilliseconds:#,##0}ms");
                 }
             }
             catch (Exception e)
